@@ -1,0 +1,13 @@
+body {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+}
+
+img {
+  cursor: pointer;
+}
+
+input[type='number'] {
+  width: 50px;
+}

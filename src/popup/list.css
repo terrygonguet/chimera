@@ -1,0 +1,22 @@
+body {
+  min-width: 300px;
+  min-height: 150px;
+  background: #EEE;
+  overflow-x: hidden;
+}
+
+.center {
+  text-align: center;
+}
+
+input[type='number'] {
+  width: 50px;
+}
+
+input[type='text'] {
+  width: 100px;
+}
+
+img {
+  cursor: pointer;
+}

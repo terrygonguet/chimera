@@ -1,0 +1,27 @@
+{
+  "name": "chimera",
+  "version": "0.1.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terrygonguet/chimera.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/terrygonguet/chimera/issues"
+  },
+  "homepage": "https://github.com/terrygonguet/chimera#readme",
+  "devDependencies": {
+    "webpack": "^4.10.2",
+    "webpack-cli": "^2.1.4"
+  },
+  "dependencies": {
+    "lodash": "^4.17.10"
+  }
+}
