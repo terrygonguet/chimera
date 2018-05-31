@@ -9,7 +9,16 @@
   "author": "CodeGalley",
 
   "background": {
-    "scripts": ["lib/browser-polyfill.min.js", "lib/lodash.min.js", "lib/moment.js", "background/background.js"]
+    "scripts": [
+      "lib/browser-polyfill.min.js",
+      "lib/lodash.min.js",
+      "lib/moment.js",
+      "lib/tools.js",
+      "lib/project.js",
+      "lib/task.js",
+      "lib/session.js",
+      "background/background.js"
+    ]
   },
 
   "browser_action": {
