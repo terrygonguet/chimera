@@ -27,7 +27,7 @@
       "dark": "resources/icon-32-white.png",
       "size": 32
     }],
-    "default_popup": "popup/list.html",
+    "default_popup": "popup/popup.html",
     "default_title": "Show items"
   },
 

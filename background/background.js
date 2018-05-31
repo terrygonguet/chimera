@@ -1,21 +1,16 @@
-import _ from 'lodash';
-
 var settings, projects;
 
-// get settings or defaults
-browser.storage.sync.get({
-  settings: {
-    default_priority:1,
-    default_increase:1,
-    include_URL_with_selection: true,
-    default_tick_every: { days:1 },
-  }
-})
+// get data or defaults
+browser.storage.sync.get()
 .then(data => {
-  settings = data;
-  return browser.storage.sync.get();
-})
-.then(data => {
+  settings = data.settings || {
+    settings: {
+      default_priority:1,
+      default_increase:1,
+      include_URL_with_selection: true,
+      default_tick_every: { days:1 },
+    }
+  };
   projects = _.omit(data, 'settings');
 });
 
