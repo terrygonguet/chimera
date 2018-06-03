@@ -41,18 +41,20 @@ class Project {
   }
 
   static addTask(project, props={}) {
-    project.tasks.push(
-      Task.create(
-        Object.assign({
-          priority: project.default_priority,
-          increase: project.default_increase
-        }, props)
-      )
+    let task = Task.create(
+      Object.assign({
+        priority: project.default_priority,
+        increase: project.default_increase
+      }, props)
     );
+    project.tasks.push(task);
+    project.sorted = false;
+    return task;
   }
 
   static setTaskDone(project, taskId, done=true) {
     Project.getTask(project, taskId).done = done;
+    project.sorted = false;
     return project;
   }
 
@@ -68,6 +70,7 @@ class Project {
         project.sessions = project.sessions.filter(s => s.task !== taskId);
       }
     }
+    project.sorted = false;
     return project;
   }
 
@@ -98,16 +101,67 @@ class Project {
     return Project.sort(Project.tick(project));
   }
 
-  static start(project) {
-    
+  static start(project, taskId=null) {
+    let startedSessions = project.sessions.filter(
+      s => s.task === taskId && Session.getState(s) !== Session.State.finished
+    );
+    if (startedSessions.length > 1) {
+      console.error("More than 1 active session for task : " + taskId);
+    } else if (startedSessions.length) {
+      Session.start(startedSessions[0]);
+    } else { // no current session
+      let session = Session.create({ task:taskId });
+      Session.start(session);
+      project.sessions.push(session);
+    }
+
+    return project;
   }
 
-  static pause(project) {
+  static pause(project, taskId=null) {
+    let startedSessions = project.sessions.filter(
+      s => s.task === taskId && Session.getState(s) !== Session.State.finished
+    );
+    if (startedSessions.length > 1) {
+      console.error("More than 1 active session for task : " + taskId);
+    } else if (startedSessions.length) {
+      Session.pause(startedSessions[0]);
+    } else { // no current session
+      console.error("No session to pause for task : " + taskId);
+    }
 
+    return project;
   }
 
-  static finish(project) {
+  static finish(project, taskId=null) {
+    let startedSessions = project.sessions.filter(
+      s => s.task === taskId && Session.getState(s) !== Session.State.finished
+    );
+    if (startedSessions.length > 1) {
+      console.error("More than 1 active session for task : " + taskId);
+    } else if (startedSessions.length) {
+      Session.finish(startedSessions[0]);
+    } else { // no current session
+      console.error("No session to finish for task : " + taskId);
+    }
 
+    return project;
+  }
+
+  static getDuration(project, allOrId=true) {
+    let sessions;
+    if (typeof allOrId === 'string') {
+      sessions = project.sessions.filter(s => s.task === allOrId);
+    } else if (allOrId) {
+      sessions = project.sessions;
+    } else {
+      sessions = project.sessions.filter(s => s.task === null);
+    }
+    let duration = moment.duration();
+    for (let session of sessions) {
+      duration.add(Session.getDuration(session));
+    }
+    return duration;
   }
 
 }

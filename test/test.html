@@ -1,0 +1,31 @@
+<!doctype>
+<html>
+  <head>
+    <title>Test</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <script>
+      expect = chai.expect;
+    </script>
+    <!-- libs -->
+    <script src="../extension/lib/browser-polyfill.min.js" charset="utf-8"></script>
+    <script src="../extension/lib/lodash.min.js" charset="utf-8"></script>
+    <script src="../extension/lib/moment.js" charset="utf-8"></script>
+    <script src="../extension/lib/tools.js" charset="utf-8"></script>
+    <script src="../extension/lib/project.js" charset="utf-8"></script>
+    <script src="../extension/lib/task.js" charset="utf-8"></script>
+    <script src="../extension/lib/session.js" charset="utf-8"></script>
+    <!-- tests -->
+    <script src="project.test.js" charset="utf-8"></script>
+    <script src="session.test.js" charset="utf-8"></script>
+    <script src="task.test.js" charset="utf-8"></script>
+    <script>
+      mocha.run();
+    </script>
+  </body>
+</html>

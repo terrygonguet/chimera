@@ -10,29 +10,10 @@ browser.storage.sync.get()
     default_tick_every: { days:1 },
   };
   projects = _.omit(data, 'settings');
-  test();
 });
 
 function saveData() {
   return browser.storage.set(Object.assign({ settings }, projects));
-}
-
-function test() {
-  let p = Project.create({
-    name:'Test',
-    description: 'lol',
-    default_increase: settings.default_increase,
-    default_priority: settings.default_priority,
-    tick_every: settings.default_tick_every
-  });
-  Project.addTask(p, {
-    name:'test2'
-  });
-  Project.start(p);
-  Project.pause(p);
-  Project.start(p);
-  Project.finish(p);
-  console.log(p);
 }
 
 // browser.contextMenus.create({

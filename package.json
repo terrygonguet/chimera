@@ -1,0 +1,27 @@
+{
+  "name": "chimera",
+  "version": "0.1.0",
+  "description": "",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node ./node_modules/mocha-chrome/cli.js test/test.html --ignore-exceptions"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terrygonguet/chimera.git"
+  },
+  "keywords": [],
+  "author": "Terry Gonguet",
+  "license": "GNUv3",
+  "bugs": {
+    "url": "https://github.com/terrygonguet/chimera/issues"
+  },
+  "homepage": "https://github.com/terrygonguet/chimera#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "mocha-chrome": "^1.1.0"
+  }
+}
