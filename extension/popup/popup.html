@@ -3,16 +3,48 @@
 
 <head>
   <meta charset="utf-8">
-  <!-- <link type="text/css" rel="stylesheet" href="../lib/colors.css"> -->
-  <!-- <link type="text/css" rel="stylesheet" href="list.css"> -->
+  <link type="text/css" rel="stylesheet" href="../lib/colors.css">
+  <link type="text/css" rel="stylesheet" href="../lib/w3.css">
+  <link type="text/css" rel="stylesheet" href="popup.css">
 </head>
 
 <body>
-  <p>aaa</p>
-  <!-- <script src="../lib/browser-polyfill.min.js"></script> -->
-  <!-- <script src="../lib/jquery.js"></script> -->
-  <!-- <script src="../lib/moment.js"></script> -->
-  <!-- <script src="../lib/lodash.min.js"></script> -->
+  <div id="container">
+
+    <div class="project-selector">
+      <select id="ddl-project-selector" v-model="settings.selected" v-if="Object.keys(projects).length > 1">
+        <option v-for="project in projects" :value="project.id" :key="project.id">
+          {{ project.name }}
+        </option>
+      </select>
+      <span v-else-if="Object.keys(projects).length === 1">{{ _.values(projects)[0].name }}</span>
+      <img src="../resources/create.png" alt="create" title="Create project" v-on:click="createProject">
+    </div>
+
+    <div class="project-details" v-if="!!bg.selected">
+      <div class="start-session">
+        <span>Start work on </span>
+        <select id="ddl-task-selector" v-model="selectedTask" v-if="bg.selected.tasks.length > 1">
+          <option value="null">the project</option>
+          <option v-for="task in bg.selected.tasks" :value="task.id" :key="task.id">{{ task.name }}</option>
+        </select>
+        <span v-else>the project</span>
+        <img src="../resources/record.png" alt="Start" title="Start work">
+      </div>
+
+      <div class="task-list">
+        <div class="task" v-for="task in bg.selected.tasks">
+          <a :href="task.url">{{ task.name }}</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="../lib/browser-polyfill.min.js"></script>
+  <script src="../lib/jquery.js"></script>
+  <script src="../lib/moment.js"></script>
+  <script src="../lib/lodash.min.js"></script>
+  <script src="../lib/vue.js"></script>
   <script src="popup.js"></script>
 </body>
 
