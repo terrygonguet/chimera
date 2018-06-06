@@ -52,8 +52,12 @@ class Project {
     return task;
   }
 
-  static setTaskDone(project, taskId, done=true) {
-    Project.getTask(project, taskId).done = done;
+  static setTaskDone(project, taskId, done=null) {
+    let task = Project.getTask(project, taskId);
+    if (done === null)
+      task.done = !task.done;
+    else
+      task.done = done;
     project.sorted = false;
     return project;
   }

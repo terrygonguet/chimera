@@ -1,4 +1,7 @@
 var settings, projects;
+var P = Project,
+    S = Session,
+    T = Task;
 
 // get data or defaults
 browser.storage.sync.get()
@@ -41,6 +44,7 @@ function createProject(props={}) {
 
 Object.defineProperty(window, 'selected', {
   get() {
+    if (!projects[settings.selected]) settings.selected = null;
     return projects[settings.selected];
   },
   set(value) {
