@@ -66,6 +66,18 @@ class Project {
     return project.tasks.find(t => t.id === taskId);
   }
 
+  static getTaskState(project, taskId=null) {
+    let session;
+    if (taskId) {
+      let task = Project.getTask(project, taskId);
+      session = project.sessions.find(s => s.task === taskId && Session.getState(s) !== Session.State.finished);
+    } else {
+      session = project.sessions.find(s => s.task === null && Session.getState(s) !== Session.State.finished);
+    }
+    if (!session) return null;
+    else return Session.getState(session);
+  }
+
   static removeTask(project, taskId, removeSessions=false) {
     let index = project.tasks.findIndex(t => t.id === taskId);
     if (index != -1) {

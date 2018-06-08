@@ -18,7 +18,7 @@
         </option>
       </select>
       <span v-else-if="Object.keys(projects).length === 1">{{ _.values(projects)[0].name }}</span>
-      <img src="../resources/create.png" alt="create" title="Create project" @click="newProject.isEditorOpened = true" v-if="!newProject.isEditorOpened">
+      <img src="../resources/create.png" alt="create" title="Create project" @click="showNewProject" v-if="!newProject.isEditorOpened">
       <div class="new-project" v-if="newProject.isEditorOpened">
         <input type="text" id="txb-project-name" v-model="newProject.name" placeholder="e.g. Holiday TODO" @keydown.enter="createProject">
         <img src="../resources/create.png" alt="create" @click="createProject" title="Create project">
@@ -28,25 +28,33 @@
     <div class="project-details" v-if="!!selected">
       <div class="start-session">
         <span>Start work on </span>
-        <select id="ddl-task-selector" v-model="selectedTask" v-if="selected.tasks.length > 1">
+        <select id="ddl-task-selector" v-model="selectedTaskId" v-if="selected.tasks.length > 1">
           <option value="null">the project</option>
           <option v-for="task in selected.tasks" :value="task.id" :key="task.id">{{ task.name }}</option>
         </select>
         <span v-else>the project</span>
-        <img src="../resources/record.png" alt="Start" title="Start work">
+        <img :src="recordButton" alt="start" title="Start work" @click="clickRecord">
+        <img :src="pauseButton" alt="pause/restart" title="Pause/Restart" @click="clickPause" v-if="selectedTaskState">
+      </div>
+
+      <div class="times">
+        <span>On project : {{ bg.P.getDuration(selected, false).humanize() }}</span>
+        <br>
+        <span>Total : {{ bg.P.getDuration(selected, true).humanize() }}</span>
       </div>
 
       <div class="task-list">
         <div class="task" v-for="task in selected.tasks">
           <div :href="task.url">
-            {{ task.name }}
+            <span>{{ task.name }}</span>
             <img :src="'../resources/check-box-' + (task.done ? 'checked' : 'empty') + '.png'" @click="setTaskDone(task.id)">
+            <span>{{ bg.P.getDuration(selected, task.id).humanize() }}</span>
           </div>
         </div>
       </div>
 
       <div class="add-task">
-        <img src="../resources/create.png" alt="create" title="Create task" v-if="!newTask.isEditorOpened"  @click="newTask.isEditorOpened = true">
+        <img src="../resources/create.png" alt="create" title="Create task" v-if="!newTask.isEditorOpened"  @click="showNewTask">
         <div class="new-task" v-if="newTask.isEditorOpened">
           <input type="text" id="txb-task-name" autofocus v-model="newTask.name" placeholder="e.g. feed the chickens" @keydown.enter="addTask">
           <label for="ckb-url">

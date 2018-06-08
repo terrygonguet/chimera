@@ -130,7 +130,28 @@ describe('Project', function () {
 
     it('should return null if not here', function () {
       let project = Project.create();
-      expect(Project.getTask(project, tools.uuidv4())).to.be.undefined;
+      expect(Project.getTask(project, tools.uuidv4())).to.not.exist;
+    });
+
+  });
+
+  describe('#getTaskState', function () {
+
+    it('should return the state of the task', function () {
+      let project = Project.create();
+      let task = Project.addTask(project);
+      Project.start(project);
+      Project.start(project, task.id);
+      expect(Project.getTaskState(project)).to.eql(Session.State.running);
+      expect(Project.getTaskState(project, task.id)).to.eql(Session.State.running);
+      Project.pause(project);
+      expect(Project.getTaskState(project)).to.eql(Session.State.paused);
+    });
+
+    it('should return null for inexisting tasks', function () {
+      let project = Project.create();
+      expect(Project.getTaskState(project)).to.not.exist;
+      expect(Project.getTaskState(project, tools.uuidv4())).to.not.exist;
     });
 
   });
