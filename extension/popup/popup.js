@@ -95,6 +95,9 @@ browser.runtime.getBackgroundPage()
           bg.P.pause(this.selected, this.selectedTaskId);
         else
           bg.P.start(this.selected, this.selectedTaskId);
+      },
+      openOptions() {
+        browser.runtime.openOptionsPage();
       }
     }
   });

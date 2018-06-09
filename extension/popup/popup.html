@@ -47,6 +47,9 @@
         <div class="task" v-for="task in selected.tasks">
           <div :href="task.url">
             <span>{{ task.name }}</span>
+            <a v-if="task.url"  :href="task.url" target="_blank">
+              <img src="../resources/link.png" alt="link" title="task.url">
+            </a>
             <img :src="'../resources/check-box-' + (task.done ? 'checked' : 'empty') + '.png'" @click="setTaskDone(task.id)">
             <span>{{ bg.P.getDuration(selected, task.id).humanize() }}</span>
           </div>
@@ -67,6 +70,10 @@
           </label>
           <img src="../resources/create.png" alt="create" title="Create task" @click="addTask">
         </div>
+      </div>
+
+      <div class="open-options">
+        <img src="../resources/settings.png" alt="options" title="Open Options" @click="openOptions">
       </div>
 
     </div>
