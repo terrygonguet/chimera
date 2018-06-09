@@ -10,11 +10,125 @@
 </head>
 
 <body>
-  <div>Icons made by <a href="https://www.flaticon.com/authors/chanut" title="Chanut">Chanut</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+  <div id="container">
+
+    <div class="project-selector">
+      <span>Select project : </span>
+      <select id="ddl-project-selector" v-model="settings.selected">
+        <option :value="project.id" v-for="project in projects">{{ project.name }}</option>
+      </select>
+    </div>
+
+    <div class="project-settings">
+      <h2>Project settings</h2>
+      <label for="txb-project-name">
+        Name
+        <input type="text" v-model="selected.name" id="txb-project-name">
+      </label>
+      <br>
+      <label for="txb-project-description">
+        Description
+        <textarea rows="8" cols="40" v-model="selected.description" id="txb-project-description"></textarea>
+      </label>
+      <br>
+      <label for="txb-project-color">
+        Color
+        <input type="color" v-model="selected.color" id="txb-project-color">
+      </label>
+      <br>
+      <label for="txb-project-def-priority">
+        Default task priority
+        <input type="number" v-model.number="selected.default_priority" id="txb-project-def-priority">
+      </label>
+      <br>
+      <label for="txb-project-def-increase">
+        Default task increase
+        <input type="number" v-model.number="selected.default_increase" id="txb-project-def-increase">
+      </label>
+      <br>
+      <div class="save-button">
+        <button @click="saveData">
+          SAVE
+          <img src="../resources/save.png" alt="save">
+        </button>
+      </div>
+    </div>
+
+    <div class="project-tasks" v-if="selected.tasks.length">
+      <h2>Tasks</h2>
+      <div class="task" v-for="task in selected.tasks" :key="task.id">
+        <input type="text" v-model="task.name" placeholder="Name">
+        <input type="url" v-model="task.url" placeholder="URL">
+        <label>
+          Priority
+          <input type="number" v-model.number="task.priority">
+        </label>
+        <label>
+          Increase
+          <input type="number" v-model.number="task.increase">
+        </label>
+        <label>
+          Done
+          <input type="checkbox" v-model="task.done">
+        </label>
+      </div>
+      <div class="save-button">
+        <button @click="saveData">
+          SAVE
+          <img src="../resources/save.png" alt="save">
+        </button>
+      </div>
+    </div>
+
+    <div class="global-settings">
+      <h2>Global settings</h2>
+      <label>
+        Default project priority
+        <input type="number" v-model.number="settings.default_priority">
+      </label>
+      <br>
+      <label>
+        Default project increase
+        <input type="number" v-model.number="settings.default_increase">
+      </label>
+      <br>
+      <!-- <label>
+        Include current URL with "Add selection"
+        <input type="checkbox" v-model="settings.include_URL_with_selection">
+      </label>
+      <br>
+      <label>
+        Default tick every
+        <input type="text" v-model.number="settings.default_tick_every">
+      </label> -->
+      <div class="save-button">
+        <button @click="saveData">
+          SAVE
+          <img src="../resources/save.png" alt="save">
+        </button>
+      </div>
+    </div>
+
+    <div class="import-export">
+      <span>
+        Import
+        <img src="../resources/save.png" @click="importData">
+        /
+        <img src="../resources/export.png" @click="exportData">
+        Export
+      </span>
+      <br>
+      <textarea rows="8" cols="40" v-model="jsonData" v-if="jsonData"></textarea>
+    </div>
+
+    <div>Icons made by <a href="https://www.flaticon.com/authors/chanut" title="Chanut">Chanut</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+
+  </div>
   <script src="../lib/browser-polyfill.min.js"></script>
-  <!-- <script src="../lib/jquery.js"></script> -->
-  <!-- <script src="../lib/moment.js"></script> -->
+  <script src="../lib/jquery.js"></script>
+  <script src="../lib/moment.js"></script>
   <script src="../lib/lodash.min.js"></script>
+  <script src="../lib/vue.js"></script>
   <script src="options.js"></script>
 </body>
 

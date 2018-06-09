@@ -28,7 +28,7 @@
     <div class="project-details" v-if="!!selected">
       <div class="start-session">
         <span>Start work on </span>
-        <select id="ddl-task-selector" v-model="selectedTaskId" v-if="selected.tasks.length > 1">
+        <select id="ddl-task-selector" v-model="selectedTaskId" v-if="selected.tasks.length >= 1">
           <option value="null">the project</option>
           <option v-for="task in selected.tasks" :value="task.id" :key="task.id">{{ task.name }}</option>
         </select>

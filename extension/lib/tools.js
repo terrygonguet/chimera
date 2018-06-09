@@ -23,6 +23,6 @@ const tools = {
   * @returns the HTML color
   */
   randColor() {
-    return `rgb(${tools.randInt(75,200)},${tools.randInt(75,200)},${tools.randInt(75,200)})`;
+    return `#${tools.randInt(75,200).toString(16)}${tools.randInt(75,200).toString(16)}${tools.randInt(75,200).toString(16)}`;
   },
 }
