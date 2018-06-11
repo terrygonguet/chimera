@@ -17,12 +17,21 @@ browser.runtime.getBackgroundPage()
     },
     methods: {
       createProject() {
-        bg.createProject({
-          name: app.newProject.name,
-        }).then(() => {
+        bg.createProject()
+        .then(() => {
           app.projects = _.cloneDeep(bg.projects);
           app.settings = _.cloneDeep(bg.settings);
         });
+      },
+      removeProject() {
+        if (confirm("Do you really want to remove " + this.selected.name + " ?")) {
+          delete this.projects[this.selected.id];
+          this.saveData()
+          .then(() => {
+            app.projects = _.cloneDeep(bg.projects);
+            app.settings = _.cloneDeep(bg.settings);
+          });
+        }
       },
       addTask() {
         if (app.selected)
@@ -42,8 +51,14 @@ browser.runtime.getBackgroundPage()
       setTaskDone(taskId) {
         bg.P.ts(bg.P.setTaskDone(app.selected, taskId));
       },
+      deleteTask(taskId) {
+        bg.P.removeTask(this.selected, taskId, true);
+      },
+      createTask() {
+        bg.P.addTask(this.selected);
+      },
       saveData() {
-        bg.saveData(app.projects, app.settings);
+        return bg.saveData(app.projects, app.settings);
       },
       importData() {
         if (this.jsonData && confirm("This will erase all your current data ! Are you sure ?")) {

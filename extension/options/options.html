@@ -17,6 +17,8 @@
       <select id="ddl-project-selector" v-model="settings.selected">
         <option :value="project.id" v-for="project in projects">{{ project.name }}</option>
       </select>
+      <img src="../resources/create.png" alt="create" title="Create project" @click="createProject">
+      <img src="../resources/trash.png" alt="delete" title="Delete project" @click="removeProject">
     </div>
 
     <div class="project-settings">
@@ -54,7 +56,7 @@
       </div>
     </div>
 
-    <div class="project-tasks" v-if="selected.tasks.length">
+    <div class="project-tasks">
       <h2>Tasks</h2>
       <div class="task" v-for="task in selected.tasks" :key="task.id">
         <input type="text" v-model="task.name" placeholder="Name">
@@ -71,6 +73,10 @@
           Done
           <input type="checkbox" v-model="task.done">
         </label>
+        <img src="../resources/trash.png" alt="delete" @click="deleteTask(task.id)">
+      </div>
+      <div class="create-task">
+        <img src="../resources/create.png" alt="create" title="Create task" @click="createTask">
       </div>
       <div class="save-button">
         <button @click="saveData">
