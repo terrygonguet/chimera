@@ -19,8 +19,65 @@ input[type='text'] {
 
 img {
   cursor: pointer;
+  object-fit: contain;
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 #container {
   height: 100%;
+  display: grid;
+  justify-items: stretch;
+}
+
+.project-selector {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.category {
+  background: #EEE;
+  border-radius: 3px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.start-session {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.times {
+  display: flex;
+  flex-direction: column;
+}
+
+.times-title {
+  align-self: center;
+  font-weight: bold;
+}
+
+.add-task {
+  text-align: center;
+}
+
+.new-task {
+  display: flex;
+  flex-direction: column;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  margin: 3px;
+}
+
+.open-options {
+  position: absolute;
+  right: 3px;
+  top: 3px;
 }

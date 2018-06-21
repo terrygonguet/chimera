@@ -98,6 +98,12 @@ browser.runtime.getBackgroundPage()
       },
       openOptions() {
         browser.runtime.openOptionsPage();
+      },
+      formatDuration(d) {
+        return `${d.days()}d ${d.hours()}h ${d.minutes()}m ${d.seconds()}s`;
+      },
+      open(url) {
+        browser.tabs.create({ url });
       }
     }
   });
@@ -105,4 +111,8 @@ browser.runtime.getBackgroundPage()
   window.addEventListener('unload', () => {
     bg.saveData(app.projects, app.settings);
   });
+
+  setInterval(() => {
+    app.$forceUpdate();
+  }, 1000);
 }, console.error);
