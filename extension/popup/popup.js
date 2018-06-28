@@ -12,7 +12,7 @@ browser.runtime.getBackgroundPage()
       bg,
       projects: _.cloneDeep(bg.projects),
       settings: _.cloneDeep(bg.settings),
-      selectedTaskId: null,
+      selectedTaskId: "",
       newProject: {
         isEditorOpened:false,
         name:"",
@@ -26,6 +26,9 @@ browser.runtime.getBackgroundPage()
     },
     computed: {
       selected() {
+        if (!this.projects[this.settings.selected]) this.settings.selected = null;
+        if (!this.settings.selected && _.keys(this.projects).length) 
+          this.settings.selected = _.keys(this.projects)[0];
         return this.projects[this.settings.selected];
       },
       selectedTask() {
@@ -86,15 +89,15 @@ browser.runtime.getBackgroundPage()
       },
       clickRecord() {
         if (!this.selectedTaskState)
-          bg.P.start(this.selected, this.selectedTaskId);
+          bg.P.start(this.selected, this.selectedTaskId || null);
         else
-          bg.P.finish(this.selected, this.selectedTaskId);
+          bg.P.finish(this.selected, this.selectedTaskId || null);
       },
       clickPause() {
         if (this.selectedTaskState === bg.S.State.running)
-          bg.P.pause(this.selected, this.selectedTaskId);
+          bg.P.pause(this.selected, this.selectedTaskId || null);
         else
-          bg.P.start(this.selected, this.selectedTaskId);
+          bg.P.start(this.selected, this.selectedTaskId || null);
       },
       openOptions() {
         browser.runtime.openOptionsPage();

@@ -12,12 +12,15 @@ browser.runtime.getBackgroundPage()
     },
     computed: {
       selected() {
+        if (!this.projects[this.settings.selected]) this.settings.selected = null;
+        if (!this.settings.selected && _.keys(this.projects).length) 
+          this.settings.selected = _.keys(this.projects)[0];
         return this.projects[this.settings.selected];
       },
     },
     methods: {
       createProject() {
-        bg.createProject()
+        bg.createProject({ name:"Untitled" })
         .then(() => {
           app.projects = _.cloneDeep(bg.projects);
           app.settings = _.cloneDeep(bg.settings);

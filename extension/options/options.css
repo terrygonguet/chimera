@@ -1,13 +1,82 @@
-body {
+html, body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 100%;
+  margin: 0;
+}
+
+#container {
   display: grid;
-  justify-content: center;
   justify-items: center;
+  align-items: center;
+  grid-template-columns: repeat(2, minmax(500px, 1fr));
+  grid-template-rows: 1fr minmax(10px, 100%) 1fr 1fr 1fr;
+  grid-template-areas: 
+    "select select"
+    "project-settings project-tasks"
+    "settings settings"
+    "import-export import-export"
+    "legal legal";
+  height: 100%;
+}
+
+#container>div {
+  margin: 1em;
+}
+
+.project-selector {
+  grid-area: select;
+  display: flex;
+  align-items: center;
+}
+
+.project-selector>* {
+  margin: 0.2em;
+}
+
+.project-settings {
+  grid-area: project-settings;
+}
+
+.project-tasks {
+  grid-area: project-tasks;
+  width: 100%;
+  margin: 0 !important;
+}
+
+.project-tasks-title {
+  display: flex;
+  align-items: center;
+}
+
+.global-settings {
+  grid-area: settings;
+}
+
+.import-export {
+  grid-area: import-export;
+}
+
+.legal {
+  grid-area: legal;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 img {
   cursor: pointer;
+  margin: 0.2em;
 }
 
 input[type='number'] {
   width: 50px;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  margin: auto;
 }

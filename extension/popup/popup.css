@@ -34,8 +34,17 @@ img {
 
 .project-selector {
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+
+.new-project {
+  display: flex;
+  justify-content: center;
+}
+
+.start-session {
+  display: flex;
   align-items: center;
 }
 
@@ -74,6 +83,13 @@ img {
   display: flex;
   justify-content: space-between;
   margin: 3px;
+  align-items: center;
+}
+
+.task * {
+  display: flex;
+  align-items: center;
+  margin: 2px;
 }
 
 .open-options {

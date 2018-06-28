@@ -3,8 +3,6 @@
 
 <head>
   <meta charset="utf-8">
-  <link type="text/css" rel="stylesheet" href="../lib/w3.css">
-  <link type="text/css" rel="stylesheet" href="../lib/colors.css">
   <link type="text/css" rel="stylesheet" href="options.css">
   <title>Chimera - settings</title>
 </head>
@@ -13,15 +11,15 @@
   <div id="container">
 
     <div class="project-selector">
-      <span>Select project : </span>
-      <select id="ddl-project-selector" v-model="settings.selected">
+      <span>{{ selected ? "Select project : " : "Create project" }}</span>
+      <select id="ddl-project-selector" v-model="settings.selected" v-if="!!selected">
         <option :value="project.id" v-for="project in projects">{{ project.name }}</option>
       </select>
       <img src="../resources/create.png" alt="create" title="Create project" @click="createProject">
-      <img src="../resources/trash.png" alt="delete" title="Delete project" @click="removeProject">
+      <img src="../resources/trash.png" alt="delete" title="Delete project" @click="removeProject" v-if="!!selected">
     </div>
 
-    <div class="project-settings">
+    <div class="project-settings" v-if="!!selected">
       <h2>Project settings</h2>
       <label for="txb-project-name">
         Name
@@ -29,7 +27,7 @@
       </label>
       <br>
       <label for="txb-project-description">
-        Description
+        Description<br>
         <textarea rows="8" cols="40" v-model="selected.description" id="txb-project-description"></textarea>
       </label>
       <br>
@@ -56,8 +54,13 @@
       </div>
     </div>
 
-    <div class="project-tasks">
-      <h2>Tasks</h2>
+    <div class="project-tasks" v-if="!!selected">
+      <span class="project-tasks-title">
+        <h2>Tasks</h2>
+        <div class="create-task">
+          <img src="../resources/create.png" alt="create" title="Create task" @click="createTask">
+        </div>
+      </span>
       <div class="task" v-for="task in selected.tasks" :key="task.id">
         <input type="text" v-model="task.name" placeholder="Name">
         <input type="url" v-model="task.url" placeholder="URL">
@@ -74,9 +77,6 @@
           <input type="checkbox" v-model="task.done">
         </label>
         <img src="../resources/trash.png" alt="delete" @click="deleteTask(task.id)">
-      </div>
-      <div class="create-task">
-        <img src="../resources/create.png" alt="create" title="Create task" @click="createTask">
       </div>
       <div class="save-button">
         <button @click="saveData">
@@ -127,11 +127,10 @@
       <textarea rows="8" cols="40" v-model="jsonData" v-if="jsonData"></textarea>
     </div>
 
-    <div>Icons made by <a href="https://www.flaticon.com/authors/chanut" title="Chanut">Chanut</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+    <div class="legal">Icons made by <a href="https://www.flaticon.com/authors/chanut" title="Chanut">Chanut</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 
   </div>
   <script src="../lib/browser-polyfill.min.js"></script>
-  <script src="../lib/jquery.js"></script>
   <script src="../lib/moment.js"></script>
   <script src="../lib/lodash.min.js"></script>
   <script src="../lib/vue.js"></script>
