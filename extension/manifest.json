@@ -37,7 +37,7 @@
       "size": 32
     }],
     "default_popup": "popup/popup.html",
-    "default_title": "Show items"
+    "default_title": "Show interface"
   },
 
   "content_security_policy":"script-src 'self' 'unsafe-eval'; object-src 'self'",
@@ -46,7 +46,7 @@
 
   "developer": {
     "name": "Terry Gonguet",
-    "url": "http://terry.gonguet.com/CV/home/apps/cv"
+    "url": "http://terry.gonguet.com/CV/"
   },
 
   "icons": {
@@ -56,7 +56,7 @@
 
   "manifest_version": 2,
 
-  "name": "Project Chimera",
+  "name": "Personal project manager & TODO list",
 
   "options_ui": {
     "page": "options/options.html",
