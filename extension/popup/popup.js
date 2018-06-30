@@ -13,6 +13,7 @@ browser.runtime.getBackgroundPage()
       projects: _.cloneDeep(bg.projects),
       settings: _.cloneDeep(bg.settings),
       selectedTaskId: "",
+      isTicking: true,
       newProject: {
         isEditorOpened:false,
         name:"",
@@ -100,7 +101,8 @@ browser.runtime.getBackgroundPage()
           bg.P.start(this.selected, this.selectedTaskId || null);
       },
       openOptions() {
-        browser.runtime.openOptionsPage();
+        bg.saveData(app.projects, app.settings)
+        .then(() => browser.runtime.openOptionsPage());
       },
       formatDuration(d) {
         return `${d.days()}d ${d.hours()}h ${d.minutes()}m ${d.seconds()}s`;
@@ -116,6 +118,6 @@ browser.runtime.getBackgroundPage()
   });
 
   setInterval(() => {
-    app.$forceUpdate();
+    app.isTicking && app.$forceUpdate();
   }, 1000);
 }, console.error);

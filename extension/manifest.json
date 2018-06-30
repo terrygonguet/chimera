@@ -46,7 +46,7 @@
 
   "developer": {
     "name": "Terry Gonguet",
-    "url": "http://terry.gonguet.com/CV/"
+    "url": "http://terry.gonguet.com/"
   },
 
   "icons": {
@@ -65,5 +65,5 @@
 
   "permissions": ["storage", "contextMenus", "tabs"],
 
-  "version": "0.1.0"
+  "version": "0.1.1"
 }

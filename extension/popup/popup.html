@@ -9,10 +9,15 @@
 </head>
 
 <body>
-  <div id="container" :style="{ backgroundColor:selected ? selected.color : '#EEE' }">
+  <div id="container" :style="{ backgroundColor:selected ? selected.color : '#EEE' }" @click="isTicking = true">
 
     <div class="project-selector">
-      <select id="ddl-project-selector" v-model="settings.selected" v-if="!!selected && !newProject.isEditorOpened" @change="newProject.isEditorOpened = newTask.isEditorOpened = false">
+      <select 
+        id="ddl-project-selector" 
+        v-model="settings.selected" 
+        v-if="!!selected && !newProject.isEditorOpened" 
+        @change="newProject.isEditorOpened = newTask.isEditorOpened = false"
+        @click.stop="isTicking = !isTicking">
         <option v-for="project in projects" :value="project.id" :key="project.id">
           {{ project.name }}
         </option>
@@ -30,7 +35,7 @@
     <div class="project-details" v-if="!!selected">
       <div class="start-session category">
         <span>Start work on </span>
-        <select id="ddl-task-selector" v-model="selectedTaskId" v-if="selected.tasks.length >= 1">
+        <select id="ddl-task-selector" v-model="selectedTaskId" v-if="selected.tasks.length >= 1" @click.stop="isTicking = !isTicking">
           <option value="" selected>the project</option>
           <option v-for="task in selected.tasks" :value="task.id" :key="task.id">
               {{ task.name.length > 50 ? task.name.slice(0,50)+'...' : task.name }}
@@ -38,7 +43,7 @@
         </select>
         <span v-else>the project</span>
         <img :src="recordButton" alt="start" title="Start work" @click="clickRecord">
-        <img :src="pauseButton" alt="pause/restart" title="Pause/Restart" @click="clickPause" v-if="selectedTaskState">
+        <img :src="pauseButton" alt="pause/restart" title="Pause/Restart" @click="clickPause" v-show="selectedTaskState">
       </div>
 
       <div class="times category">
@@ -71,11 +76,11 @@
           </label>
           <label for="ckb-url">
             Include current URL in task
-            <input type="checkbox" id="ckb-url" v-model="newTask.includeURL">
+            <input type="checkbox" id="ckb-url" v-model="newTask.includeURL" @keydown.enter="addTask">
           </label>
           <label for="txb-priority">
             Priority
-            <input type="number" id="txb-priority" v-model.number="newTask.priority">
+            <input type="number" id="txb-priority" v-model.number="newTask.priority" @keydown.enter="addTask">
           </label>
           <img src="../resources/create.png" alt="create" title="Create task" @click="addTask">
         </div>

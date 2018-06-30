@@ -52,27 +52,27 @@ Object.defineProperty(window, 'selected', {
   }
 });
 
-// browser.contextMenus.create({
-//   id: "add-link",
-//   title: "Add to TODO list",
-//   onclick(e, tab) {
-//     List.addItem(window.selected, { name:e.linkText, url:e.linkUrl });
-//   },
-//   contexts: ["link"]
-// });
-// browser.contextMenus.create({
-//   id: "add-page",
-//   title: "Add page to TODO list",
-//   onclick(e, tab) {
-//     List.addItem(window.selected, { name:tab.title, url:e.pageUrl });
-//   },
-//   contexts: ["page"]
-// });
-// browser.contextMenus.create({
-//   id: "add-selection",
-//   title: "Add selection to TODO list",
-//   onclick(e, tab) {
-//     List.addItem(window.selected, { name:e.selectionText, url: _data.settings.include_URL_with_selection ? e.pageUrl : '' });
-//   },
-//   contexts: ["selection"]
-// });
+browser.contextMenus.create({
+  id: "add-link",
+  title: "Add to TODO list",
+  onclick(e, tab) {
+    Project.addTask(window.selected, { name:e.linkText, url:e.linkUrl });
+  },
+  contexts: ["link"]
+});
+browser.contextMenus.create({
+  id: "add-page",
+  title: "Add page to TODO list",
+  onclick(e, tab) {
+    Project.addTask(window.selected, { name:tab.title, url:e.pageUrl });
+  },
+  contexts: ["page"]
+});
+browser.contextMenus.create({
+  id: "add-selection",
+  title: "Add selection to TODO list",
+  onclick(e, tab) {
+    Project.addTask(window.selected, { name:e.selectionText, url:settings.include_URL_with_selection ? e.pageUrl : '' });
+  },
+  contexts: ["selection"]
+});
